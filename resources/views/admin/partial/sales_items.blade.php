@@ -81,7 +81,7 @@
                         <x-form.select custom="" label="Select Product" name="product_id" id="product_id">
                             <option value="" selected disabled>Choose Product</option>
                             @foreach (App\Models\product::all() as $product)
-                                <option value="{{ $product->id }}" data-price="{{ $product->selling_price ?? 0 }}">
+                                <option value="{{ $product->id }}" data_price="{{ $product->selling_price ?? 0 }}">
                                     {{ $product->name }} ({{ $product->selling_price }})
                                 </option>
                             @endforeach
@@ -176,6 +176,21 @@
             }
         }
 
+        document.getElementById("product_id").addEventListener("change", function() {
+            let selectElement = this;
+            let selectedOption = selectElement.options[selectElement.selectedIndex];
+
+            let unitPriceInput = document.getElementById("unit_price");
+
+            let price = selectedOption.getAttribute("data_price");
+
+            if (price && price !== "0") {
+                unitPriceInput.value = parseFloat(price).toFixed(2);
+            } else {
+                unitPriceInput.value = "0.00";
+            }
+        });
+
         function storedata(event) {
             if (event) event.preventDefault();
 
@@ -184,18 +199,7 @@
             // let tax = document.getElementById("tax").value;
             let quantity = document.getElementById("quantity").value;
 
-            if (productId) {
-                productId.addEventListener("change", function() {
-                    let productId = document.getElementById("product_id").value;
-                    let unitprice = document.getElementById("unit_price").value;
-                    const price = productId.getAttribute("data_price");
-                    if (price) {
-                        unitprice.value = parseFloat(price).toFixed(2);
-                    } else {
-                        unitprice.value = "0.00";
-                    }
-                });
-            }
+
 
 
             if (productId === "" || categoryId === "" || quantity === "") {
