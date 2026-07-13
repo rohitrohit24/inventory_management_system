@@ -1,0 +1,401 @@
+:root {
+    --main-bg: #0f172a;
+    --aside-bg: #1e293b;
+    --aside-text: #94a3b8;
+    --text-accent: #06b6d4;
+    --text-light-accent: #06b5d4b4;
+    --border-color: 1px solid #334155;
+    --aside-navhover: rgba(6, 182, 212, 0.05);
+}
+
+body {
+    background-color: var(--main-bg);
+    /* Slate 900 */
+    color: #f8fafc;
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+}
+
+.mute-text {
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--aside-text);
+}
+
+/* Typography & Colors */
+.text-accent {
+    color: var(--text-accent);
+}
+
+.bg-accent {
+    background-color: var(--text-accent);
+    color: #fff;
+}
+.bg-aside {
+    background-color: var(--aside-bg);
+}
+
+.bg-card {
+    background-color: var(--main-bg);
+    border: var(--border-color);
+}
+
+.border-slate {
+    border-color: var(--border-color);
+}
+.nav-tabs .nav-link.active {
+    border-color: var(--border-color);
+    border-radius: 0px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: #06b5d44d;
+}
+.nav-tabs .nav-link {
+    color: var(--aside-text);
+    border-radius: 0px;
+}
+.nav-tabs .nav-link:hover {
+    color: var(--aside-text);
+    border-radius: 0px;
+}
+
+.nav-tabs {
+    border-radius: 0px;
+}
+
+/* Layout */
+.wrapper {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    height: 100vh;
+    position: relative;
+}
+
+/* Sidebar */
+aside {
+    width: 260px;
+    background-color: var(--aside-bg);
+    border-right: var(--border-color);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    z-index: 1040;
+}
+
+/* Sidebar Overlay for Mobile */
+/* .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 1030;
+    transition: opacity 0.3s ease;
+} */
+
+/* Mobile Responsiveness for Sidebar */
+@media (max-width: 991.98px) {
+    aside {
+        position: fixed;
+        height: 100vh;
+        transform: translateX(-100%);
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    aside.show {
+        transform: translateX(0);
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+        animation: fadeIn 0.3s;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.sidebar-brand {
+    padding: 1.25rem 1.5rem;
+    font-size: 1.3rem;
+    font-weight: 800;
+    border-bottom: var(--border-color);
+    letter-spacing: 0.5px;
+}
+
+.nav-link-sidebar {
+    color: var(--aside-text);
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    border-left: 3px solid transparent;
+    font-weight: 500;
+}
+
+.nav-link-sidebar:hover {
+    color: #fff;
+    background-color: var(--aside-navhover);
+}
+
+.nav-link-sidebar.active {
+    color: #fff;
+    background-color: var(--aside-navhover);
+    border-left-color: var(--text-accent);
+}
+
+.nav-link-sidebar i {
+    font-size: 1.2rem;
+    width: 24px;
+    text-align: center;
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: var(--main-bg);
+    width: 100%;
+}
+
+/* Top Header */
+header {
+    background-color: var(--aside-bg);
+    padding: 1rem 1.5rem;
+    border-bottom: var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Cards */
+.stat-card {
+    background-color: var(--aside-bg);
+    border: var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
+    height: 100%;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--text-color);
+}
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    background-color: rgba(6, 182, 212, 0.1);
+    color: var(--text-color);
+    flex-shrink: 0;
+}
+
+/* Table */
+.table-dark {
+    --bs-table-bg: #1e293b;
+    --bs-table-border-color: #334155;
+    /* --bs-table-color: #cbd5e1; */
+}
+
+.table-dark th {
+    color: var(--aside-text);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    border-bottom: var(--border-color);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.table-dark td {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: var(--border-color);
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--aside-navhover);
+}
+
+.badge-accent {
+    background-color: var(--aside-navhover);
+    color: var(--text-accent);
+    border: var(--border-color);
+    padding: 0.35em 0.8em;
+    font-weight: 500;
+}
+
+/* Button Styles & Focus Rings */
+.btn-accent {
+    color: var(--text-accent);
+    background-color: #ffffff;
+    border: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    border: 1px solid var(--text-accent);
+}
+
+.btn-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3) !important;
+    border: var(--border-color);
+    background-color: var(--text-light-accent);
+}
+
+.btn-accent:focus,
+.btn-accent:active {
+    background-color: var(--text-accent) !important;
+    border-color: var(--text-accent) !important;
+    box-shadow: 0 0 0 0.25rem rgba(6, 182, 212, 0.4) !important;
+    outline: none !important;
+}
+
+.btn-outline-secondary:focus,
+.btn-outline-secondary:active,
+.btn-outline-light:focus,
+.btn-outline-light:active {
+    box-shadow: 0 0 0 0.25rem rgba(148, 163, 184, 0.3) !important;
+    outline: none !important;
+}
+
+/* 2. Custom Gradient Background Class breadcrumb header */
+.bg-gradient-header {
+    background: linear-gradient(
+        135deg,
+        var(--aside-bg) 10%,
+        var(--text-accent) 200%
+    );
+    border-left: 5px solid var(--text-accent);
+}
+
+.form-control,
+.form-select {
+    background-color: var(--aside-navhover);
+    border-color: var(--border-color) !important;
+    color: #f8fafc;
+}
+.form-select option {
+    background-color: var(--main-bg);
+    color: white;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--text-accent) !important;
+    box-shadow: 0 0 0 0.25rem rgba(6, 182, 212, 0.25) !important;
+}
+.action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    /* width: 42px; */
+    height: 22px;
+    /* border-radius: 50%; */
+    border-radius: 15px;
+    background-color: transparent;
+}
+.action-buttons i {
+    font-size: 13px;
+    padding-right: 2px;
+}
+
+.action-buttons:hover {
+    color: white;
+}
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+.ls-2 {
+    letter-spacing: 2px;
+}
+
+.breadcrumb-item {
+    padding-left: 8px;
+}
+
+/* Responsive Text */
+/* @media (max-width: 575.98px) {
+    .stat-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    header h5 {
+        font-size: 1.1rem;
+    }
+} */
+
+/* Shuruat me close-btn aur inner items hidden rahenge */
+.sidebar-dropdown-wrapper .close-btn,
+.sidebar-dropdown-wrapper .dropdown-items-container {
+    display: none;
+}
+
+/* Jab menu open wale link par click hoga (#invoicesMenu active hoga) */
+#invoicesMenu:target {
+    display: block !important;
+    padding-left: 15px;
+}
+
+/* Jab menu active ho, toh open button ko chhupao aur close button ko dikhao */
+#invoicesMenu:target ~ .open-btn {
+    display: none !important;
+}
+#invoicesMenu:target ~ .close-btn {
+    display: flex !important;
+}
