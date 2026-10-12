@@ -20,7 +20,6 @@ class GlobalModal extends Component
         $this->recordId = $id;
         $this->title = $title;
 
-        // Dynamic Eloquent Query
         $record = $model::find($id);
 
         if ($record) {
@@ -29,21 +28,17 @@ class GlobalModal extends Component
         }
     }
 
-    // 🌟 Yeh function missing tha form submit ke liye
     public function update()
     {
         if (!$this->modelName || !$this->recordId) return;
 
-        // Model ko dhoondkar update karein
         $record = $this->modelName::find($this->recordId);
 
         if ($record) {
             $record->update($this->data);
 
-            // Success message ya alert dispatch karein
             $this->dispatch('alert', ['type' => 'success', 'message' => 'Data updated successfully!']);
 
-            // Doosre components (jaise Datatable) ko refresh karne ke liye
             $this->dispatch('refreshDatatable');
         }
 

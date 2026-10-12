@@ -74,13 +74,13 @@
 
             try {
                 const response = await fetch(controllerURL, {
-                    method: 'POST', // 
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
                             'content')
                     },
-                    body: JSON.stringify(formdata) // 
+                    body: JSON.stringify(formdata)
                 });
 
                 const result = await response.json();
@@ -94,14 +94,6 @@
                     if (closeBtn) {
                         closeBtn.click();
                     }
-                    // const modalElement = document.getElementById('rohit12');
-                    // const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(
-                    //     modalElement);
-                    // modalInstance.hide();
-
-                    // if (document.activeElement) {
-                    //     document.activeElement.blur();
-                    // }
                 } else {
                     throw new Error(result.message || 'Server standard error');
                 }
@@ -113,40 +105,4 @@
             }
         });
     </script>
-    {{-- <script>
-        const myForm = document.getElementById('catigorieForm');
-        myForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            let messagediv = document.getElementById('showmessage');
-            messagediv.innerText = "data sending...";
-            const formdata = {
-                name: document.getElementById('name').value,
-                description: document.getElementById('description').value
-            };
-            const controllerURL = 'categorie/store';
-            try {
-                const response = await fetch(controllerURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: json.stringify(formdata)
-                });
-                const result = await response.json();
-                if (response.ok) {
-                    messagediv.style.color = "green";
-                    messagediv.innerText = `Success: ${result.message}`;
-                    myForm.reset();
-                } else {
-                    throw new Error(result.message || 'Server standard error');
-                }
-
-            } catch (error) {
-                console.error("Error details:", error);
-                messagediv.style.color = "red";
-                messagediv.innerText = `Oops! ${error.message}`;
-            }
-
-        })
-    </script> --}}
 @endpush
