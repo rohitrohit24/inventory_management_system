@@ -49,9 +49,9 @@ class UnPaidInvoices extends DataTableComponent
             Column::make("Status", "status")
                 ->label(function ($row) {
                     if ($row->status == '1') {
-                        return '<span class="badge rounded-pill badge-accent"><i class="bi bi-check-circle-fill me-1"></i> Paid</span>';
+                        return '<span class="badge rounded-pill" style="background:rgba(16,185,129,0.18);color:#10b981;border:1px solid rgba(16,185,129,0.4);font-size:0.72rem;font-weight:600;padding:0.3em 0.85em;"><i class="bi bi-check-circle-fill me-1"></i> Paid</span>';
                     } else {
-                        return '<span class="badge rounded-pill badge-accent"><i class="bi bi-exclamation-circle-fill me-1"></i> Unpaid</span>';
+                        return '<span class="badge rounded-pill" style="background:rgba(239,68,68,0.18);color:#ef4444;border:1px solid rgba(239,68,68,0.4);font-size:0.72rem;font-weight:600;padding:0.3em 0.85em;"><i class="bi bi-exclamation-circle-fill me-1"></i> Unpaid</span>';
                     }
                 })
                 ->html()
@@ -91,7 +91,7 @@ class UnPaidInvoices extends DataTableComponent
                         ->location(fn($row) => '#')
                         ->attributes(function ($row) {
                             return [
-                                'class' => 'btn action-buttons btn-outline-info',
+                                'class' => 'btn action-buttons btn-outline-warning',
                                 'wire:click.prevent' => "\$dispatch('open-invoice-pay-modal', { id: {$row->id} })",
                             ];
                         }),

@@ -16,8 +16,7 @@ class ProductController extends Controller
     }
     public function index()
     {
-        $product = Product::all();
-        return view('admin.partial.product', compact('product'));
+        return view('admin.partial.product');
     }
 
     /**
@@ -33,26 +32,38 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new Product();
-        // $request->validated();
+        try {
+            $product = new Product();
+            // $request->validated();
 
-        $img = $request->file('image');
-        $file_name = time() . rand(10000, 99999) . '.' . $img->getClientOriginalExtension();
-        $file_path = $img->storeAs('ProductImg', $file_name, 'public');
-        $product->create([
-            'category_id' => $request->category_id,
-            'name' => $request->name,
-            'sku' => $request->sku,
-            'barcode' => $request->barcode,
-            'quantity' => $request->quantity,
-            'cost_price' => $request->cost_price,
-            'tax_rate' => $request->tax_rate,
-            'selling_price' => $request->selling_price,
-            'alert_quantity' => $request->alert_quantity,
-            'description' => $request->description,
-            'image' => $file_path,
-        ]);
-        return redirect(route('product.index'))->with('message', 'Product Store Successfully...');
+            $img = $request->file('image');
+            $file_name = time() . rand(10000, 99999) . '.' . $img->getClientOriginalExtension();
+            $file_path = $img->storeAs('ProductImg', $file_name, 'public');
+            $product->create([
+                'category_id' => $request->category_id,
+                'name' => $request->name,
+                'sku' => $request->sku,
+                'barcode' => $request->barcode,
+                'quantity' => $request->quantity,
+                'cost_price' => $request->cost_price,
+                'tax_rate' => $request->tax_rate,
+                'selling_price' => $request->selling_price,
+                'alert_quantity' => $request->alert_quantity,
+                'description' => $request->description,
+                'image' => $file_path,
+            ]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'product Successfully crated..'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+
+        // return redirect(route('product.index'))->with('message', 'Product Store Successfully...');
     }
 
     /**

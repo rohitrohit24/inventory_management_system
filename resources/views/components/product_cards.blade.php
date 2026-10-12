@@ -18,8 +18,10 @@
                 {{ $stockvalue }}
             @endif
         </h4>
-        <div class="text-end">
-            {{ $card_button }}
-        </div>
+        @isset($card_button)
+            <div class="text-end">
+                {{ $card_button }}
+            </div>
+        @endisset
     </div>
 </div>

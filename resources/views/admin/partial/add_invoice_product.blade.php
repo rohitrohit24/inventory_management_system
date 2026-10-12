@@ -20,7 +20,7 @@
                 </x-breadcrumb-item>
             </x-breadcrumb>
 
-            <div class="col-12 rounded-3 bg-aside">
+            <div class="col-12 rounded-3 bg-aside border border-slate">
                 <form action="{{ route('totalinvoice.store') }}" onsubmit="invoicedata()" method="POST">
                     @csrf
                     <div class="row p-3">
@@ -213,7 +213,6 @@
 
             let total_amount = document.getElementById("total_amount");
             if (total_amount) total_amount.value = newtotal;
-
             let paidInput = document.getElementById("paid_amount");
             let dueInput = document.getElementById("due_amount");
 

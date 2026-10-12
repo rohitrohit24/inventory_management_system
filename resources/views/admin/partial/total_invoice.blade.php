@@ -90,20 +90,19 @@
                     </x-buttons>
                 </x-slot:footer>
             </x-modal> --}}
-            <div class="col-md-12 bg-aside rounded-3 p-3 table-responsive">
-                <div class="text-end pb-4">
-                    <a href="{{ route('totalinvoice.paid_invoice') }}" class="btn btn-accent">
+            <div class="col-md-12 bg-aside rounded-3 p-3 table-responsive border border-slate">
+                <div class="text-end pb-3">
+                    <a href="{{ route('totalinvoice.paid_invoice') }}" class="btn btn-accent me-2">
                         <i class="bi bi-check-circle-fill me-1"></i> Paid Invoices
                     </a>
                     <a href="{{ route('totalinvoice.unpaid_invoice') }}" class="btn btn-accent">
-                        <i class="bi bi-exclamation-circle-fill me-2"></i></i> UnPaid Invoices
+                        <i class="bi bi-exclamation-circle-fill me-1"></i> Unpaid Invoices
                     </a>
                 </div>
-                <livewire:total_invoice-table>
-                    <livewire:invoice-show-modal>
-                        <livewire:delete-modal-table>
-                            <livewire:invoice-pay-modal>
-
+                <livewire:total_invoice-table />
+                <livewire:invoice-show-modal />
+                <livewire:delete-modal-table />
+                <livewire:invoice-pay-modal />
             </div>
             {{-- <x-modal id="showInvoiceItemsModal" title="📦 Invoice Products List" size="modal-lg">
                 <div class="p-2 mb-3 bg-secondary rounded text-white px-3">

@@ -3,15 +3,30 @@
     --aside-bg: #1e293b;
     --aside-text: #94a3b8;
     --text-accent: #06b6d4;
-    --text-light-accent: #06b5d4b4;
+    --text-light-accent: #22d3ee;
     --border-color: 1px solid #334155;
-    --aside-navhover: rgba(6, 182, 212, 0.05);
+    --border-color-raw: #334155;
+    --aside-navhover: rgba(6, 182, 212, 0.1);
+    --card-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --card-hover-shadow:
+        0 10px 25px -5px rgba(6, 182, 212, 0.15),
+        0 8px 10px -6px rgba(0, 0, 0, 0.3);
 }
 
 body {
     background-color: var(--main-bg);
-    /* Slate 900 */
     color: #f8fafc;
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        sans-serif;
     min-height: 100vh;
     display: flex;
     overflow-x: hidden;
@@ -25,46 +40,28 @@ body {
     color: var(--aside-text);
 }
 
-/* Typography & Colors */
+/* Typography & Accent Colors */
 .text-accent {
-    color: var(--text-accent);
+    color: var(--text-accent) !important;
 }
 
 .bg-accent {
-    background-color: var(--text-accent);
-    color: #fff;
+    background-color: var(--text-accent) !important;
+    color: #ffffff !important;
 }
+
 .bg-aside {
     background-color: var(--aside-bg);
 }
 
 .bg-card {
-    background-color: var(--main-bg);
+    background-color: var(--aside-bg);
     border: var(--border-color);
+    box-shadow: var(--card-shadow);
 }
 
 .border-slate {
-    border-color: var(--border-color);
-}
-.nav-tabs .nav-link.active {
-    border-color: var(--border-color);
-    border-radius: 0px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    background-color: #06b5d44d;
-}
-.nav-tabs .nav-link {
-    color: var(--aside-text);
-    border-radius: 0px;
-}
-.nav-tabs .nav-link:hover {
-    color: var(--aside-text);
-    border-radius: 0px;
-}
-
-.nav-tabs {
-    border-radius: 0px;
+    border-color: var(--border-color-raw) !important;
 }
 
 /* Layout */
@@ -76,7 +73,7 @@ body {
     position: relative;
 }
 
-/* Sidebar */
+/* Sidebar Styling */
 aside {
     width: 260px;
     background-color: var(--aside-bg);
@@ -85,31 +82,29 @@ aside {
     flex-direction: column;
     flex-shrink: 0;
     overflow-y: auto;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1040;
 }
 
-/* Sidebar Overlay for Mobile */
-/* .sidebar-overlay {
+.sidebar-overlay {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
+    background-color: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
     z-index: 1030;
     transition: opacity 0.3s ease;
-} */
+}
 
-/* Mobile Responsiveness for Sidebar */
 @media (max-width: 991.98px) {
     aside {
         position: fixed;
         height: 100vh;
         transform: translateX(-100%);
-        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
+        box-shadow: 6px 0 25px rgba(0, 0, 0, 0.5);
     }
 
     aside.show {
@@ -118,7 +113,7 @@ aside {
 
     .sidebar-overlay.show {
         display: block;
-        animation: fadeIn 0.3s;
+        animation: fadeIn 0.3s ease forwards;
     }
 }
 
@@ -126,7 +121,6 @@ aside {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
@@ -134,42 +128,47 @@ aside {
 
 .sidebar-brand {
     padding: 1.25rem 1.5rem;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 800;
     border-bottom: var(--border-color);
     letter-spacing: 0.5px;
+    color: #f8fafc;
 }
 
 .nav-link-sidebar {
     color: var(--aside-text);
-    padding: 0.8rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     display: flex;
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     border-left: 3px solid transparent;
     font-weight: 500;
+    font-size: 0.92rem;
 }
 
 .nav-link-sidebar:hover {
-    color: #fff;
+    color: #ffffff;
     background-color: var(--aside-navhover);
+    padding-left: 1.75rem;
 }
 
 .nav-link-sidebar.active {
-    color: #fff;
+    color: #ffffff;
     background-color: var(--aside-navhover);
     border-left-color: var(--text-accent);
+    font-weight: 600;
 }
 
 .nav-link-sidebar i {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     width: 24px;
     text-align: center;
+    color: var(--text-accent);
 }
 
-/* Main Content */
+/* Main Content & Header */
 main {
     flex: 1;
     display: flex;
@@ -179,138 +178,268 @@ main {
     width: 100%;
 }
 
-/* Top Header */
 header {
     background-color: var(--aside-bg);
-    padding: 1rem 1.5rem;
+    padding: 0.85rem 1.75rem;
     border-bottom: var(--border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Cards */
+/* Cards Design System */
 .stat-card {
-    background-color: var(--aside-bg);
+    background: linear-gradient(145deg, #1e293b 0%, #172033 100%);
     border: var(--border-color);
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 1.5rem;
-    transition:
-        transform 0.3s ease,
-        border-color 0.3s ease;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(
+        circle,
+        rgba(6, 182, 212, 0.15) 0%,
+        rgba(0, 0, 0, 0) 70%
+    );
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 .stat-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--text-color);
+    transform: translateY(-4px);
+    border-color: var(--text-accent);
+    box-shadow: var(--card-hover-shadow);
 }
 
 .stat-icon {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem;
-    background-color: rgba(6, 182, 212, 0.1);
-    color: var(--text-color);
+    font-size: 1.4rem;
+    background-color: rgba(6, 182, 212, 0.12);
+    color: var(--text-accent);
     flex-shrink: 0;
+    transition: transform 0.3s ease;
 }
 
-/* Table */
+.stat-card:hover .stat-icon {
+    transform: scale(1.1);
+}
+
+/* Tables Styling */
 .table-dark {
     --bs-table-bg: #1e293b;
     --bs-table-border-color: #334155;
-    /* --bs-table-color: #cbd5e1; */
+    --bs-table-color: #f8fafc;
+    border-color: #334155 !important;
 }
 
 .table-dark th {
     color: var(--aside-text);
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
-    border-bottom: var(--border-color);
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    font-size: 0.725rem;
+    letter-spacing: 0.75px;
+    border-bottom: 2px solid #334155 !important;
+    padding: 1rem;
+    background-color: #162032 !important;
 }
 
 .table-dark td {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: var(--border-color);
+    padding: 1rem;
+    border-bottom: 1px solid #334155 !important;
     vertical-align: middle;
+    color: #e2e8f0;
+}
+
+.table-hover tbody tr {
+    transition: background-color 0.2s ease;
 }
 
 .table-hover tbody tr:hover {
-    background-color: var(--aside-navhover);
+    background-color: rgba(6, 182, 212, 0.06) !important;
 }
 
+/* Badges */
 .badge-accent {
-    background-color: var(--aside-navhover);
+    background-color: rgba(6, 182, 212, 0.15);
     color: var(--text-accent);
-    border: var(--border-color);
-    padding: 0.35em 0.8em;
-    font-weight: 500;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    padding: 0.4em 0.85em;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 11px;
 }
 
-/* Button Styles & Focus Rings */
+.badge-success {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 0.4em 0.85em;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 11px;
+}
+
+.badge-warning {
+    background-color: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    padding: 0.4em 0.85em;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 11px;
+}
+
+.badge-danger {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 0.4em 0.85em;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 11px;
+}
+
+/* Buttons */
 .btn-accent {
-    color: var(--text-accent);
-    background-color: #ffffff;
-    border: none;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    border: 1px solid var(--text-accent);
+    color: #ffffff !important;
+    background-color: var(--text-accent) !important;
+    border: 1px solid var(--text-accent) !important;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(6, 182, 212, 0.25);
 }
 
 .btn-accent:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3) !important;
-    border: var(--border-color);
-    background-color: var(--text-light-accent);
+    background-color: #0891b2 !important;
+    border-color: #0891b2 !important;
+    box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4) !important;
 }
 
 .btn-accent:focus,
 .btn-accent:active {
-    background-color: var(--text-accent) !important;
-    border-color: var(--text-accent) !important;
     box-shadow: 0 0 0 0.25rem rgba(6, 182, 212, 0.4) !important;
-    outline: none !important;
 }
 
-.btn-outline-secondary:focus,
-.btn-outline-secondary:active,
-.btn-outline-light:focus,
-.btn-outline-light:active {
-    box-shadow: 0 0 0 0.25rem rgba(148, 163, 184, 0.3) !important;
-    outline: none !important;
+/* Table Action Buttons - Styled as distinct status buttons */
+.action-buttons {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.725rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.4px !important;
+    padding: 0.3em 0.85em !important;
+    border-radius: 20px !important;
+    height: 26px !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    text-decoration: none !important;
+    vertical-align: middle !important;
 }
 
-/* 2. Custom Gradient Background Class breadcrumb header */
-.bg-gradient-header {
-    background: linear-gradient(
-        135deg,
-        var(--aside-bg) 10%,
-        var(--text-accent) 200%
-    );
-    border-left: 5px solid var(--text-accent);
+.action-buttons i {
+    font-size: 0.825rem;
+    margin-right: 4px;
 }
 
+/* Edit / Update Action Button (Cyan / Info Theme) */
+.action-buttons.btn-outline-info {
+    color: #06b6d4 !important;
+    background-color: rgba(6, 182, 212, 0.15) !important;
+    border: 1px solid rgba(6, 182, 212, 0.4) !important;
+}
+
+.action-buttons.btn-outline-info:hover {
+    color: #ffffff !important;
+    background-color: #06b6d4 !important;
+    border-color: #06b6d4 !important;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35) !important;
+    transform: translateY(-1px);
+}
+
+/* Delete Action Button (Red / Danger Theme) */
+.action-buttons.btn-outline-danger {
+    color: #ef4444 !important;
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    border: 1px solid rgba(239, 68, 68, 0.4) !important;
+}
+
+.action-buttons.btn-outline-danger:hover {
+    color: #ffffff !important;
+    background-color: #ef4444 !important;
+    border-color: #ef4444 !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35) !important;
+    transform: translateY(-1px);
+}
+
+/* Show / View Action Button (Emerald / Success Theme) */
+.action-buttons.btn-outline-success {
+    color: #10b981 !important;
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    border: 1px solid rgba(16, 185, 129, 0.4) !important;
+}
+
+.action-buttons.btn-outline-success:hover {
+    color: #ffffff !important;
+    background-color: #10b981 !important;
+    border-color: #10b981 !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35) !important;
+    transform: translateY(-1px);
+}
+
+/* Pay / Warning Action Button (Amber / Gold Theme) */
+.action-buttons.btn-outline-warning,
+.action-buttons.btn-outline-primary {
+    color: #f59e0b !important;
+    background-color: rgba(245, 158, 11, 0.15) !important;
+    border: 1px solid rgba(245, 158, 11, 0.4) !important;
+}
+
+.action-buttons.btn-outline-warning:hover,
+.action-buttons.btn-outline-primary:hover {
+    color: #ffffff !important;
+    background-color: #f59e0b !important;
+    border-color: #f59e0b !important;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35) !important;
+    transform: translateY(-1px);
+}
+
+/* Form Controls */
 .form-control,
 .form-select {
-    background-color: var(--aside-navhover);
-    border-color: var(--border-color) !important;
-    color: #f8fafc;
+    background-color: #0f172a !important;
+    border: 1px solid #334155 !important;
+    color: #f8fafc !important;
+    border-radius: 8px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.92rem;
+    transition: all 0.2s ease;
 }
+
 .form-select option {
-    background-color: var(--main-bg);
-    color: white;
+    background-color: #0f172a;
+    color: #f8fafc;
 }
 
 .form-control:focus,
@@ -318,29 +447,67 @@ header {
     border-color: var(--text-accent) !important;
     box-shadow: 0 0 0 0.25rem rgba(6, 182, 212, 0.25) !important;
 }
-.action-buttons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 600;
-    /* width: 42px; */
-    height: 22px;
-    /* border-radius: 50%; */
-    border-radius: 15px;
-    background-color: transparent;
-}
-.action-buttons i {
-    font-size: 13px;
-    padding-right: 2px;
+
+.form-control::placeholder {
+    color: #64748b;
 }
 
-.action-buttons:hover {
-    color: white;
+/* Modals */
+.modal-content {
+    background-color: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5) !important;
 }
-/* Scrollbar styling */
+.modal-header {
+    border-bottom: 1px solid #334155 !important;
+    padding: 1.25rem 1.5rem;
+}
+
+.modal-header .modal-title {
+    font-weight: 700;
+    color: #f8fafc;
+}
+
+.modal-header .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.modal-footer {
+    border-top: 1px solid #334155 !important;
+    padding: 1rem 1.5rem;
+}
+
+/* Alerts */
+.alert {
+    border-radius: 10px;
+    border: 1px solid transparent;
+    padding: 1rem 1.25rem;
+    font-weight: 500;
+}
+
+.alert-info {
+    background-color: rgba(6, 182, 212, 0.12);
+    border-color: rgba(6, 182, 212, 0.3);
+    color: #22d3ee;
+}
+
+.alert-success {
+    background-color: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #34d399;
+}
+
+.alert-danger {
+    background-color: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #f87171;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -355,47 +522,8 @@ header {
 ::-webkit-scrollbar-thumb:hover {
     background: #475569;
 }
-.ls-2 {
-    letter-spacing: 2px;
-}
 
-.breadcrumb-item {
-    padding-left: 8px;
-}
-
-/* Responsive Text */
-/* @media (max-width: 575.98px) {
-    .stat-card h2 {
-        font-size: 1.5rem;
-    }
-
-    .stat-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-    }
-
-    header h5 {
-        font-size: 1.1rem;
-    }
-} */
-
-/* Shuruat me close-btn aur inner items hidden rahenge */
-.sidebar-dropdown-wrapper .close-btn,
-.sidebar-dropdown-wrapper .dropdown-items-container {
-    display: none;
-}
-
-/* Jab menu open wale link par click hoga (#invoicesMenu active hoga) */
-#invoicesMenu:target {
-    display: block !important;
-    padding-left: 15px;
-}
-
-/* Jab menu active ho, toh open button ko chhupao aur close button ko dikhao */
-#invoicesMenu:target ~ .open-btn {
-    display: none !important;
-}
-#invoicesMenu:target ~ .close-btn {
-    display: flex !important;
+.quick-shortcuts a:hover {
+    background-color: var(--aside-text);
+    color: black;
 }

@@ -27,13 +27,10 @@
             </x-breadcrumb>
 
 
-            <div class="col-md-12 bg-aside rounded-3 p-3 table-responsive">
-                <livewire:sales-table>
-                    <livewire:global-modal />
-                    <livewire:delete-modal-table>
-                        {{-- <livewire:invoice-show-modal>
-                            <livewire:invoice-pay-modal> --}}
-
+            <div class="col-md-12 bg-aside rounded-3 p-3 table-responsive border border-slate">
+                <livewire:sales-table />
+                <livewire:global-modal />
+                <livewire:delete-modal-table />
             </div>
         </div>
     </div>

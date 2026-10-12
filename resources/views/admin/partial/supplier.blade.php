@@ -80,10 +80,10 @@
                     </x-buttons>
                 </x-slot:footer>
             </x-modal>
-            <div class="col-md-12 bg-aside rounded-3 p-3 table-responsive">
-                <livewire:supplier-table>
-                    <livewire:supplier-modal-table>
-                        <livewire:delete-modal-table>
+            <div class="col-md-12 bg-aside rounded-3 p-3 table-responsive border border-slate">
+                <livewire:supplier-table />
+                <livewire:supplier-modal-table />
+                <livewire:delete-modal-table />
             </div>
         </div>
     </div>

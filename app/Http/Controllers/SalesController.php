@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
@@ -35,7 +36,21 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (empty($request->input('product_data'))) {
+            return back()->with('error', 'Please add at least one product to generate an invoice.');
+        }
+
+        Sale::create([
+            'invoice_no' => $request->invoice_no,
+            'user_id' => $request->user_id,
+            'customer_name' => $request->customer_name,
+            'sale_date' => $request->sale_date,
+            'discount' => $request->discount ?? 0,
+            'grand_total' => $request->grand_total,
+            'payment_method' => $request->payment_method,
+            'products' => $request->input('product_data'),
+        ]);
+        return back()->with('message', 'sales store successfully');
     }
 
     /**

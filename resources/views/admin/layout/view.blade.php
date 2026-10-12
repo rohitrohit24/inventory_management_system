@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Dashboard</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,73 +32,78 @@
                     aria-label="Close"></button>
             </div>
             <div class="py-3">
-                <p class="px-4 mt-4 mb-2 mute-text">Overview</p>
+                <p class="px-4 mt-3 mb-2 mute-text">Overview</p>
 
-                <a href="{{ route('dashboard.view') }}" class="nav-link-sidebar">
+                <a href="{{ route('dashboard.view') }}"
+                    class="nav-link-sidebar {{ request()->routeIs('dashboard.view') || request()->routeIs('admin.show') ? 'active' : '' }}">
                     <i class="bi bi-grid-1x2-fill"></i> Dashboard
                 </a>
 
-                <p class="px-4 mt-4 mb-2 mute-text">User Control</p>
-                <a href="#" class="nav-link-sidebar">
-                    <i class="bi bi-people-fill"></i> Users
-                </a>
-
                 <p class="px-4 mt-4 mb-2 mute-text">Inventory</p>
-                <a href="{{ route('categorie.view') }}" class="nav-link-sidebar">
+                <a href="{{ route('categorie.view') }}"
+                    class="nav-link-sidebar {{ request()->routeIs('categorie.*') ? 'active' : '' }}">
                     <i class="bi bi-tags-fill"></i> Categories
                 </a>
-                <a href="{{ route('product.view') }}" class="nav-link-sidebar">
+                <a href="{{ route('product.view') }}"
+                    class="nav-link-sidebar {{ request()->routeIs('product.*') ? 'active' : '' }}">
                     <i class="bi bi-box-seam-fill"></i> Products
                 </a>
-                <a href="{{ route('supplier.view') }}" class="nav-link-sidebar">
+                <a href="{{ route('supplier.view') }}"
+                    class="nav-link-sidebar {{ request()->routeIs('supplier.*') ? 'active' : '' }}">
                     <i class="bi bi-truck"></i> Suppliers
                 </a>
-                <a href="#" class="nav-link-sidebar">
-                    <i class="bi bi-archive-fill"></i> Stocks
-                </a>
-                <p class="px-4 mt-4 mb-2 mute-text">Invoices</p>
-                <a href="#invoicesDropdown" class="nav-link-sidebar d-flex justify-content-between align-items-center"
-                    data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="invoicesDropdown">
-                    <span><i class="bi bi-receipt-cutoff me-2"></i> All Invoices</span>
+
+                <p class="px-4 mt-4 mb-2 mute-text">Invoices & Billing</p>
+                <a href="#invoicesDropdown"
+                    class="nav-link-sidebar d-flex justify-content-between align-items-center {{ request()->routeIs('totalinvoice.*') ? 'active' : '' }}"
+                    data-bs-toggle="collapse" role="button"
+                    aria-expanded="{{ request()->routeIs('totalinvoice.*') ? 'true' : 'false' }}"
+                    aria-controls="invoicesDropdown">
+                    <span><i class="bi bi-receipt-cutoff me-1"></i> All Invoices</span>
                     <i class="bi bi-chevron-down dropdown-arrow"></i>
                 </a>
 
-                <div class="collapse px-3" id="invoicesDropdown">
-                    <a href="{{ route('totalinvoice.view') }}" class="nav-link-sidebar ps-4 py-2 d-block small">
+                <div class="collapse {{ request()->routeIs('totalinvoice.*') ? 'show' : '' }} px-3"
+                    id="invoicesDropdown">
+                    <a href="{{ route('totalinvoice.view') }}"
+                        class="nav-link-sidebar ps-4 py-2 d-block small {{ request()->routeIs('totalinvoice.view') || request()->routeIs('totalinvoice.index') ? 'active' : '' }}">
                         <i class="bi bi-cart-plus-fill me-2"></i> Total Invoices
                     </a>
-                    <a href="{{ route('totalinvoice.paid_invoice') }}" class="nav-link-sidebar ps-4 py-2 d-block small">
+                    <a href="{{ route('totalinvoice.paid_invoice') }}"
+                        class="nav-link-sidebar ps-4 py-2 d-block small {{ request()->routeIs('totalinvoice.paid_invoice') ? 'active' : '' }}">
                         <i class="bi bi-cash-stack me-2"></i> Paid Invoices
                     </a>
                     <a href="{{ route('totalinvoice.unpaid_invoice') }}"
-                        class="nav-link-sidebar ps-4 py-2 d-block small">
+                        class="nav-link-sidebar ps-4 py-2 d-block small {{ request()->routeIs('totalinvoice.unpaid_invoice') ? 'active' : '' }}">
                         <i class="bi bi-exclamation-circle-fill me-2"></i> Unpaid Invoices
                     </a>
-                    <a href="{{ route('totalinvoice.add_product') }}" class="nav-link-sidebar ps-4 py-2 d-block small">
-                        <i class="bi bi-list-task me-2"></i> Add Product Invoice
+                    <a href="{{ route('totalinvoice.add_product') }}"
+                        class="nav-link-sidebar ps-4 py-2 d-block small {{ request()->routeIs('totalinvoice.add_product') ? 'active' : '' }}">
+                        <i class="bi bi-plus-circle-fill me-2"></i> Add Product Invoice
                     </a>
                 </div>
 
                 <p class="px-4 mt-4 mb-2 mute-text">Sales</p>
-                <a href="{{ route('sales.view') }}" class="nav-link-sidebar">
-                    <i class="bi bi-receipt"></i> Sale
+                <a href="{{ route('sales.view') }}"
+                    class="nav-link-sidebar {{ request()->routeIs('sales.view') || request()->routeIs('sales.view') ? 'active' : '' }}">
+                    <i class="bi bi-receipt"></i> Sales Overview
                 </a>
-                <a href="{{ route('sales.items') }}" class="nav-link-sidebar">
+                <a href="{{ route('sales.items') }}"
+                    class="nav-link-sidebar {{ request()->routeIs('sales.items') ? 'active' : '' }}">
                     <i class="bi bi-list-stars"></i> Sales Items
                 </a>
 
-                <p class="px-4 mt-4 mb-2 mute-text">Documents</p>
-                <a href="#" class="nav-link-sidebar">
-                    <i class="bi bi-file-earmark-text-fill"></i> Invoices
-                </a>
-                <a href="#" class="nav-link-sidebar">
-                    <i class="bi bi-graph-up-arrow"></i> Reports
+                <p class="px-4 mt-4 mb-2 mute-text">Reports</p>
+                <a href="{{ route('reports.index') }}" class="nav-link-sidebar">
+                    <i class="bi bi-receipt"></i> Sales Report
                 </a>
 
-                <p class="px-4 mt-4 mb-2 mute-text">System</p>
-                <a href="#" class="nav-link-sidebar">
-                    <i class="bi bi-gear-fill"></i> Settings
+                <p class="px-4 mt-4 mb-2 mute-text">AI Assistant</p>
+                <a href="{{ route('ai_agent.index') }}"
+                    class="nav-link-sidebar {{ request()->routeIs('ai_agent.*') ? 'active' : '' }}">
+                    <i class="bi bi-robot"></i> InventoryBot
                 </a>
+
             </div>
         </aside>
 
@@ -118,7 +124,7 @@
                 <div class="flex-grow-1 mx-3 mx-lg-4 d-none d-sm-block">
                     <div class="position-relative" style="max-width: 400px;">
                         <input type="text" class="form-control border-slate rounded-pill ps-4 pe-5 py-2"
-                            placeholder="Search Products...">
+                            placeholder="Search Inventory...">
                         <button
                             class="btn btn-link text-muted position-absolute end-0 top-50 translate-middle-y text-decoration-none pe-3"
                             type="button">
@@ -128,17 +134,16 @@
                 </div>
 
                 <!-- Mobile Search Icon -->
-                <button class="btn btn-link d-sm-none p-0 text-decoration-none me-auto ms-2">
+                <button class="btn btn-link text-light d-sm-none p-0 text-decoration-none me-auto ms-2">
                     <i class="bi bi-search fs-5"></i>
                 </button>
 
                 <div class="d-flex align-items-center gap-2 gap-md-3">
-                    <!-- Rounded Button Component -->
-                    <x-admin.button variant="accent" class="shadow-sm d-none d-md-inline-flex py-1 px-3"
-                        icon="bi bi-plus-lg" text="Create" style="font-size: 0.9rem;" />
+                    <x-admin.button href="{{ route('product.view') }}" variant="accent"
+                        class="shadow-sm d-none d-md-inline-flex py-1 px-3" icon="bi bi-plus-lg" text="New Product"
+                        style="font-size: 0.85rem;" />
 
-
-                    <div class="position-relative cursor-pointer d-none d-sm-block ms-2">
+                    <div class="position-relative cursor-pointer d-none d-sm-block ms-1">
                         <i class="bi bi-bell text-muted fs-5"></i>
                         <span
                             class="position-absolute top-0 start-100 translate-middle p-1 bg-accent border border-dark rounded-circle">
@@ -146,31 +151,37 @@
                         </span>
                     </div>
 
+                    @php
+                        $user = Auth::guard('admin')->user() ?? Auth::user();
+                        $userName = $user ? $user->name : 'Admin';
+                        $firstInitial = strtoupper(substr($userName, 0, 1));
+                    @endphp
+
                     <div class="dropdown">
                         <button class="btn btn-dark bg-transparent border-0 p-0 d-flex align-items-center gap-2"
                             type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="rounded-circle bg-accent text-white d-flex align-items-center justify-content-center"
-                                style="width: 36px; height: 36px; font-weight: bold; font-size: 1rem;">
-                                {{ substr(Auth::guard('admin')->user()->name, 0, 1) }}
+                            <div class="rounded-circle bg-accent text-white d-flex align-items-center justify-content-center shadow-sm"
+                                style="width: 38px; height: 38px; font-weight: bold; font-size: 1.05rem;">
+                                {{ $firstInitial }}
                             </div>
                             <div class="text-start d-none d-md-block">
                                 <span class="d-block text-white fw-medium lh-1"
-                                    style="font-size: 0.9rem;">{{ Auth::guard('admin')->user()->name }}</span>
+                                    style="font-size: 0.9rem;">{{ $userName }}</span>
                                 <span class="d-block text-muted mt-1" style="font-size: 0.75rem;">Administrator</span>
                             </div>
                             <i class="bi bi-chevron-down ms-1 text-muted d-none d-sm-block"
                                 style="font-size: 0.8rem;"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark border-slate shadow-lg mt-2">
-                            <li><a class="dropdown-item py-2" href="#"><i
-                                        class="bi bi-person me-2 text-muted"></i> My Profile</a></li>
-                            <li><a class="dropdown-item py-2" href="#"><i
-                                        class="bi bi-shield-lock me-2 text-muted"></i> Security</a></li>
+                            <li><a class="dropdown-item py-2" href="{{ route('dashboard.view') }}"><i
+                                        class="bi bi-speedometer2 me-2 text-muted"></i> Dashboard</a></li>
+                            <li><a class="dropdown-item py-2" href="{{ route('product.view') }}"><i
+                                        class="bi bi-box-seam me-2 text-muted"></i> Manage Products</a></li>
                             <li>
                                 <hr class="dropdown-divider border-slate">
                             </li>
                             <li>
-                                <form action="#" method="POST">
+                                <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="dropdown-item py-2 text-danger"><i
                                             class="bi bi-box-arrow-right me-2"></i> Logout</button>

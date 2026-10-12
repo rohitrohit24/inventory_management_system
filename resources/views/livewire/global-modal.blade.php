@@ -1,6 +1,6 @@
 <div>
     @if ($isOpen)
-        <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0,0,0,0.5); z-index: 1055;">
+        <div wire:transition class="modal fade show d-block lw-modal" tabindex="-1" style="background: rgba(0,0,0,0.5); z-index: 1055;">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content border-slate text-light">
 
@@ -47,3 +47,4 @@
         </div>
     @endif
 </div>
+

@@ -8,7 +8,8 @@
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="{{ $action }}" method="{{ $method }}" enctype="multipart/form-data">
+            <form @if ($formid) id="{{ $formid }}" @endif action="{{ $action }}"
+                method="{{ $method }}" enctype="multipart/form-data">
                 @csrf
                 {{-- @if ($formMethod)
                     @method('{{ $formMethod }}')

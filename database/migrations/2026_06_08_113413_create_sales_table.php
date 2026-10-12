@@ -20,9 +20,9 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained();
             $table->integer('quantity')->nullable();
             $table->decimal('unit_price', 10, 2)->nullable();
-            $table->decimal('discount', 10, 2)->default(0.00);
             $table->decimal('tax', 10, 2)->default(0.00);
             $table->decimal('item_total', 10, 2)->nullable();
+            $table->decimal('discount', 10, 2)->default(0.00);
             $table->string('payment_method')->default('Cash');
             $table->date('sale_date')->nullable();
             $table->timestamps();

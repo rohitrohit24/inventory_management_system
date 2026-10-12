@@ -16,8 +16,7 @@ class CategoriesController extends Controller
     }
     public function index()
     {
-        $categorie = Categorie::all();
-        return view('admin.partial.categorie', compact('categorie'));
+        return view('admin.partial.categorie');
     }
 
     /**
@@ -33,12 +32,28 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $categorie = new Categorie();
-        $categorie->create([
-            'name' => $request->name,
-            'description' => $request->description,
-        ]);
-        return redirect(route('categorie.index'))->with('message', 'Category Store Successfully..');
+        try {
+            // Naya object banaya
+            $categorie = new Categorie();
+
+            // Ek-ek karke values assign ki
+            $categorie->name = $request->name;
+            $categorie->description = $request->description;
+
+            // Database me save kiya
+            $categorie->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Category successfully created!',
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+        // return redirect(route('categorie.index'))->with('message', 'Category Store Successfully..');
     }
 
     /**

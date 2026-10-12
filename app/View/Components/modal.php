@@ -17,6 +17,7 @@ class modal extends Component
     public $action;
     public $method;
     public $formMethod;
+    public $formid;
     public $enctype;
     public function __construct(
         $id = '',
@@ -25,12 +26,14 @@ class modal extends Component
         $action = '',
         $method = 'POST',
         $formMethod = 'POST',
-        $enctype = ''
+        $enctype = '',
+        $formid = ''
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->size = $size;
         $this->action = $action;
+        $this->formid = $formid;
         $this->method = strtoupper($method);
         $this->formMethod = $formMethod;
         $this->enctype = $enctype;

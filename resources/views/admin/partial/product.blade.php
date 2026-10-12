@@ -26,9 +26,11 @@
                 </x-slot:buttons>
 
             </x-breadcrumb>
+            <div id="showmessage">
 
-            <x-modal id="rohit12" action="{{ route('product.store') }}" method="POST" title="Add Products"
-                size="modal-xl">
+            </div>
+
+            <x-modal id="rohit12" formid="productform" title="Add Products" size="modal-xl">
                 <div class="row p-3">
                     <div class="col-md-6 col-12 mb-2">
                         <x-form.input type="text" placeholder="Enter Product Name" label="Product Name" name="name"
@@ -81,16 +83,16 @@
                     </div>
                 </div>
                 <x-slot:footer>
+                    <button type="button" id="triggerModalClose" data-bs-dismiss="modal" class="d-none"></button>
                     <x-buttons type="submit" variant="btn-primary" custom="btn-md shadow-lg" icon="bi bi-plus-lg">
                         Submit
                     </x-buttons>
                 </x-slot:footer>
             </x-modal>
-            <div class="col-md-12 bg-aside rounded-3 p-3 table-responsive">
-                <livewire:product-table>
-                    <livewire:product-modal-table>
-                        <livewire:delete-modal-table>
-
+            <div class="col-md-12 bg-aside rounded-3 p-3 table-responsive border border-slate">
+                <livewire:product-table />
+                <livewire:product-modal-table />
+                <livewire:delete-modal-table />
             </div>
 
             {{-- <x-modal id="{{ $product->id }}" action="{{ route('product.update', $product->id) }}" method="POST"
@@ -163,90 +165,45 @@
         </div>
     </div>
 @endsection
-{{-- 
-@include('livewire-tables::datatable')
-<div id="productEditModalWrapper">
-    @if ($editingProduct)
-        <x-modal id="productEditModal" action="{{ route('product.update', $editingProduct->id) }}" method="POST"
-            title="Edit Product" size="modal-xl">
-            @csrf
-            @method('PUT')
-            <div class="row p-3">
-                <div class="col-md-6 col-12 mb-2">
-                    <x-form.input type="text" placeholder="Enter Product Name" value="{{ $editingProduct->name }}"
-                        label="Product Name" name="name" id="name" required="required" custom="text-white" />
-                </div>
-                <div class="col-md-6 col-12 mb-2">
-                    <x-form.input type="number" placeholder="Enter Quantity" label="Product Quantity"
-                        value="{{ $editingProduct->quantity }}" name="quantity" id="quantity" required="required"
-                        custom="text-white" />
-                </div>
-                <div class="col-md-6 col-12 mb-2">
-                    <x-form.select custom="" label="Category" name="category_id" id="category_id">
-                        <option disabled>Select Categories</option>
-                        @foreach (App\Models\Categorie::all() as $category)
-                            <option value="{{ $category->id }}"
-                                {{ $editingProduct->category_id == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
-                    </x-form.select>
-                </div>
-                <div class="col-md-6 col-12 mb-2">
-                    <x-form.input type="text" placeholder="Enter Sku" label="Sku Code"
-                        value="{{ $editingProduct->sku }}" name="sku" id="sku" required="required"
-                        custom="text-white" />
-                </div>
-                <div class="col-md-6 col-12 mb-2">
-                    <x-form.input type="text" placeholder="Enter Barcode" label="BarCode"
-                        value="{{ $editingProduct->barcode }}" name="barcode" id="barcode" required="required"
-                        custom="text-white" />
-                </div>
-                <div class="col-md-6 col-12 mb-2">
-                    <x-form.input type="number" placeholder="Enter Cost Price" label="Cost Price"
-                        value="{{ $editingProduct->cost_price }}" name="cost_price" id="cost_price" required="required"
-                        custom="text-white" />
-                </div>
-                <div class="col-md-6 col-12 mb-2">
-                    <x-form.input type="number" placeholder="Enter Alert Quantity"
-                        value="{{ $editingProduct->alert_quantity }}" label="Alert Quantity" name="alert_quantity"
-                        id="alert_quantity" custom="text-white" />
-                </div>
-                <div class="col-md-6 col-12 mb-2">
-                    <x-form.input type="number" placeholder="Enter Selling Price" label="Selling Price"
-                        value="{{ $editingProduct->selling_price }}" name="selling_price" id="selling_price"
-                        required="required" custom="text-white" />
-                </div>
-                <div class="col-md-12 col-12 mb-2">
-                    <x-form.input type="text" placeholder="Enter Description"
-                        value="{{ $editingProduct->description }}" label="Description" name="description"
-                        id="description" custom="text-white" />
-                </div>
-                <div class="col-md-12 col-12 mb-2">
-                    <x-form.file custom="" label="Product Image" value="{{ $editingProduct->image }}"
-                        accept="jpg,png," id="image" name="image" />
-                </div>
-            </div>
-            <x-slot:footer>
-                <x-buttons type="submit" variant="btn-primary" custom="btn-md shadow-lg" icon="bi bi-plus-lg">
-                    Update Product
-                </x-buttons>
-            </x-slot:footer>
-        </x-modal>
-    @endif
-</div>
+@push('scripts')
+    <script>
+        let productform = document.getElementById('productform');
+        productform.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            let alert = document.getElementById('showmessage');
+            alert.innerText = "data sending...";
 
-<script>
-    document.addEventListener('livewire:init', () => {
-        Livewire.on('open-edit-modal', () => {
+            const formdata = new FormData(productform);
 
-            setTimeout(() => {
-                const modalElement = document.getElementById('productEditModal');
-                if (modalElement) {
-                    const bootstrapModal = new bootstrap.Modal(modalElement);
-                    bootstrapModal.show();
+            const URL = '/product/store';
+
+            try {
+                const response = await fetch(URL, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content'),
+                        'Accept': 'application/json'
+                    },
+                    body: formdata
+                })
+                const result = await response.json();
+                if (response.ok) {
+                    alert.style.color = "green";
+                    alert.innerText = `Success: ${result.message}`;
+                    productform.reset();
+                    Livewire.dispatch('refreshTable');
+                    const closeBtn = document.getElementById('triggerModalClose');
+                    if (closeBtn) closeBtn.click();
+                } else {
+                    throw new Error(result.message || 'Server standard error');
                 }
-            }, 100);
-        });
-    });
-</script> --}}
+            } catch (error) {
+                console.error("Error details:", error);
+                alert.style.color = "red";
+                alert.innerText = `Oops! ${error.message}`;
+            }
+
+        })
+    </script>
+@endpush

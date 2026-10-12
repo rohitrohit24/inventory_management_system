@@ -98,7 +98,7 @@ class TotalInvoiceTable extends DataTableComponent
                         ->location(fn($row) => '#')
                         ->attributes(function ($row) {
                             return [
-                                'class' => 'btn-sm btn action-buttons btn-outline-info',
+                                'class' => 'btn action-buttons btn-outline-warning',
                                 'wire:click.prevent' => "\$dispatch('open-invoice-pay-modal', { id: {$row->id} })",
                             ];
                         }),

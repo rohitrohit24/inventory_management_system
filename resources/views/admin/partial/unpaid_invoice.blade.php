@@ -27,13 +27,11 @@
 
             </x-breadcrumb>
 
-            <div class="col-md-12 bg-aside pt-5 rounded-3 p-3 table-responsive">
-
-                <livewire:unpaid_invoices>
-                    <livewire:invoice-show-modal>
-                        <livewire:delete-modal-table>
-                            <livewire:invoice-pay-modal>
-
+            <div class="col-md-12 bg-aside rounded-3 p-3 table-responsive border border-slate">
+                <livewire:unpaid_invoices />
+                <livewire:invoice-show-modal />
+                <livewire:delete-modal-table />
+                <livewire:invoice-pay-modal />
             </div>
 
         </div>

@@ -31,19 +31,7 @@ class SalesTable extends DataTableComponent
                 ->sortable(),
             Column::make("User id", "user_id")
                 ->sortable(),
-            Column::make("Product id", "product_id")
-                ->sortable(),
-            Column::make("Category id", "category_id")
-                ->sortable(),
-            Column::make("Quantity", "quantity")
-                ->sortable(),
-            Column::make("Unit price", "unit_price")
-                ->sortable(),
             Column::make("Discount", "discount")
-                ->sortable(),
-            Column::make("Tax", "tax")
-                ->sortable(),
-            Column::make("Item total", "item_total")
                 ->sortable(),
             Column::make("Payment method", "payment_method")
                 ->sortable(),

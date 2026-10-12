@@ -13,6 +13,7 @@ use Rappasoft\LaravelLivewireTables\Views\Columns\HtmlColumn;
 class ProductTable extends DataTableComponent
 {
     protected $model = Product::class;
+    protected $listeners = ['refreshTable' => '$refresh'];
 
     public function configure(): void
     {

@@ -30,8 +30,7 @@ class TotalInvoiceController extends Controller
     }
     public function index()
     {
-        $totalinvoice = TotalInvoice::all();
-        return view('admin.partial.total_invoice', compact('totalinvoice'));
+        return view('admin.partial.total_invoice');
     }
 
     /**
